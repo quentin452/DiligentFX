@@ -888,6 +888,11 @@ void HnRenderPass::UpdateDrawListItemGPUResources(DrawListItem& ListItem, Render
                 State.RenderParam.GetUseShadows())
                 PSOFlags |= PBR_Renderer::PSO_FLAG_ENABLE_SHADOWS;
 
+            PSOFlags =
+                PBR_Renderer::PSO_FLAG_COMPUTE_MOTION_VECTORS |
+                PBR_Renderer::PSO_FLAG_USE_IBL |
+                static_cast<PBR_Renderer::PSO_FLAGS>(USD_Renderer::USD_PSO_FLAG_ENABLE_COLOR_OUTPUT);
+
             ListItem.pPSO = PsoCache.Get({PSOFlags, static_cast<PBR_Renderer::ALPHA_MODE>(State.AlphaMode), IsDoubleSided, m_DebugView, ShaderTextureIndexingId}, true);
         }
         else if (m_RenderMode == HN_RENDER_MODE_MESH_EDGES ||
